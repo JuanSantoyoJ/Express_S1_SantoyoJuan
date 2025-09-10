@@ -1,0 +1,87 @@
+openapi: 3.0.4
+info:
+  title: Campuslands
+  description: |-
+    esto es una descripcion
+  contact:
+    name: toyosan
+    url: https://github.com/JuanSantoyoJ/Express_S1_SantoyoJuan.git
+  version: 1.0.12
+servers:
+  - url: https://localhost:3000/
+    description: url del localhost
+tags:
+  - name: Campers
+    description: cosito de camper
+  - name: Trainers
+    description: cosito de trainers
+  - name: Salones
+    description: cosito de salones
+paths:
+  /campers:
+    post:
+      tags:
+        - Campers
+      summary: agrega un camper
+      description: Aqui se agregan los Campers
+      operationId: crearCamper
+      requestBody:
+        description: Datos necesarios para crear un camper
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Camper"
+      responses:
+        "201":
+          description: Camper creado exitosamente
+        "400":
+          description: Error en los datos
+    put:
+      tags:
+        - Campers
+      summary: Actualizar un camper
+      description: Aqui se actualizan los parceros
+      operationId: actualizarCamper
+      requestBody:
+        description: Datos necesarios para actualizar un camper
+        required: true
+        content:
+          application/json: # 👈 indentación corregida
+            schema:
+              $ref: "#/components/schemas/Camper"
+      responses: # 👈 ya no está dentro del requestBody
+        "201":
+          description: Camper actualizado
+        "400":
+          description: Error
+components:
+  schemas:
+    Camper:
+      type: object
+      required:
+        - id
+        - nombre
+        - edad
+        - email
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: "Juan Pérez"
+        edad:
+          type: integer
+          example: 20
+        email:
+          type: string
+          format: email
+          example: "juan.perez@campuslands.com"
+        telefono:
+          type: string
+          example: "+57 3001234567"
+        estado:
+          type: string
+          enum: [activo, inactivo, graduado]
+          example: "activo"
