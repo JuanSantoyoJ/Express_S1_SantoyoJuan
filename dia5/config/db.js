@@ -1,24 +1,27 @@
 import mongoose from "mongoose";
 
-export class Database {
-    constructor(uri) {
-        this.uri = uri;
+export class Database{
+    constructor(uri){
+        this.uri=uri;
     }
-    async connect() {
-        try {
-            mongoose.set("strictQuery", true);
+    async connect(){
+        try{
+            mongoose.set("strictQuery",true);
             await mongoose.connect(this.uri);
-            console.log("MongoDB conectado")
-        } catch (error) {
-            console.log("Error: " + error.message)
+            console.log("MongoDB Conectado!");
+        }
+        catch(err){
+            console.log("Error en MongoDB:"+err.message);
         }
     }
-    async disconnect() {
-        try {
+
+    async disconnect(){
+        try{
             await mongoose.disconnect();
-            console.log("conexion exitosa")
-        } catch (error) {
-            console.log("Error: " + error.message)
+            console.log("Base de Datos Desconectada!");
+        }
+        catch(err){
+            console.log("Error en MongoDB:"+err.message);
         }
     }
 }

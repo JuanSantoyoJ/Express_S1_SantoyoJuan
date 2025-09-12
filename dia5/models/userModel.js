@@ -1,26 +1,23 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     name:{type:String,required:true,trim:true},
-    email:{type:String,required:true,unique:true},
+    email:{type:String,required:true,unique:true,lowercase:true,trim:true},
     age:{type:Number,min:0}
-},{timestamps:true})
+},{timestamps:true});
+
+/*
+-- Clase de dominio --
+*/
 
 
-
-
-
-class userClass{
+class UserClass{
     get isAdult(){
-        return (this.age ?? 0) >= 18;
+        return (this.age ?? 0) >=18;
     }
     static async findByEmail(email){
         return this.findOne({email});
     }
 }
-
-
-
-userSchema.loadClass(userClass);
-
-export const userModel = mongoose.model("User",userSchema)
+UserSchema.loadClass(UserClass);
+export const UserModel = mongoose.model("User",UserSchema);
